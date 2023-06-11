@@ -1,0 +1,252 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:LibraryApp.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:CompileBindings="True"
+        x:DataType="vm:MainWindowViewModel"
+        x:Class="LibraryApp.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="LibraryApp">
+
+	<!-- https://docs.avaloniaui.net/docs/data-binding/compiledbindings -->
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+
+	<TabControl>
+
+		<TabItem Header="Home Screen">
+			<StackPanel DataContext="{Binding HomescreenViewModel}" Spacing="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+				<TextBlock FontSize="30">List of expected returns today:</TextBlock>
+				<Border BorderBrush="Black" BorderThickness="2" Padding="100" Width="500">
+					<ListBox Items="{Binding Loans}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Margin="20">
+									<Grid>
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+										</Grid.RowDefinitions>
+
+										<StackPanel Orientation="Horizontal" Grid.Row="0">
+											<TextBlock Text="IdBooks: " FontWeight="Bold" />
+											<TextBlock Text="{Binding ISBN}" FontWeight="Bold" />
+										</StackPanel>
+										<StackPanel Orientation="Horizontal" Grid.Row="1">
+											<TextBlock Text="Loaned by: " FontWeight="Bold" />
+											
+										    <TextBlock Text="{Binding Borrower.Firstname}" FontWeight="Bold" />
+											
+										</StackPanel>
+									</Grid>
+								</Border>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+				</Border>
+				
+			</StackPanel>
+		</TabItem>
+		<!--
+			<TabItem Header="Acceuil">
+				<StackPanel DataContext="{Binding HomescreenViewModel}" Spacing="10">
+					<TextBlock>Returns of today:</TextBlock>
+					<TextBox Text="{Binding Books}" />
+					<TextBox Text="{Binding , Mode=OneWay}"
+							 IsReadOnly="True"
+							 FontWeight="Bold" />
+				</StackPanel>
+			</TabItem>
+		-->
+
+		<!-- Our ReactiveViewModel -->
+		<TabItem Header="Books">
+			<StackPanel DataContext="{Binding BooksViewModel}" Spacing="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+				<TextBlock FontSize="30">All existing books:</TextBlock>
+				<Border BorderBrush="Black" BorderThickness="2" Padding="10" Width="500">
+					<ListBox Items="{Binding Books}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Margin="20">
+									<Grid>
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+										</Grid.RowDefinitions>
+										<StackPanel Orientation="Horizontal" Grid.Row="0">
+											<TextBlock Text="IdBooks: " FontWeight="Bold" />
+											<TextBlock Text="{Binding ISBN}" FontWeight="Bold" />
+										</StackPanel>
+										<StackPanel Orientation="Horizontal" Grid.Row="1">
+											<TextBlock Text="Title: " FontWeight="Bold" />
+											<TextBlock Text="{Binding Title}" FontWeight="Bold" />
+										</StackPanel>
+										<StackPanel Orientation="Horizontal" Grid.Row="2">
+											<TextBlock Text="Author: " FontWeight="Bold" />
+											<TextBlock Text="{Binding NameAuthor}" FontWeight="Bold" />
+										</StackPanel>
+										<StackPanel Orientation="Horizontal" Grid.Row="3">
+											<TextBlock Text="Price: " FontWeight="Bold" />
+											<TextBlock Text="{Binding Price}" FontWeight="Bold" />
+										</StackPanel>
+										<StackPanel Orientation="Horizontal" Grid.Row="4">
+											<TextBlock Text="DatePublication: " FontWeight="Bold" />
+											<TextBlock Text="{Binding YearPublication}" FontWeight="Bold" />
+										</StackPanel>
+										<StackPanel Orientation="Horizontal" Grid.Row="5">
+											<TextBlock Text="Pages: " FontWeight="Bold" />
+											<TextBlock Text="{Binding NumberPages}" FontWeight="Bold" />
+										</StackPanel>
+										<StackPanel Orientation="Horizontal" Grid.Row="6">
+											<TextBlock Text="Stock: " FontWeight="Bold" />
+											<TextBlock Text="{Binding Stock}" FontWeight="Bold" />
+										</StackPanel>
+										<StackPanel Orientation="Horizontal" Grid.Row="7">
+											<TextBlock Text="Type: " FontWeight="Bold" />
+											<TextBlock Text="{Binding Type}" FontWeight="Bold" />
+										</StackPanel>
+
+									</Grid>
+								</Border>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</Border>
+				<StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="5"
+					HorizontalAlignment="Left">
+					<Button Width="70" Foreground="White" Background="Green" Command="{Binding AddCommand}">Add</Button>
+					<Button Width="70" Foreground="White" Background="Gray" Command="{Binding ModifyCommand}">Modify</Button>
+					<Button Width="70" Foreground="White" Background="Red" Command="{Binding DeleteCommand}">Delete</Button>
+				</StackPanel>
+			</StackPanel>
+		</TabItem>
+		<TabItem Header="Borrowers">
+			<StackPanel DataContext="{Binding BorrowersViewModel}" Spacing="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+				<TextBlock FontSize="30">List of borrowers:</TextBlock>
+				<Border BorderBrush="Black" BorderThickness="2" Padding="10" Width="500">
+					<ListBox Items="{Binding Borrowers}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Margin="20">
+									<Grid>
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+										</Grid.RowDefinitions>
+										<StackPanel Orientation="Horizontal" Grid.Row="0">
+											<TextBlock Text="IdBorrowers: " FontWeight="Bold" />
+											<TextBlock Text="{Binding IdBorrowers}" FontWeight="Bold" />
+										</StackPanel>
+										<StackPanel Orientation="Horizontal" Grid.Row="1">
+											<TextBlock Text="Firstname: " FontWeight="Bold" />
+											<TextBlock Text="{Binding Firstname}" FontWeight="Bold" />
+										</StackPanel>
+										<StackPanel Orientation="Horizontal" Grid.Row="2">
+											<TextBlock Text="Lastname: " FontWeight="Bold" />
+											<TextBlock Text="{Binding Lastname}" FontWeight="Bold" />
+										</StackPanel>
+									</Grid>
+								</Border>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</Border>
+				<StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="5"
+					HorizontalAlignment="Left">
+					<Button Width="70" Foreground="White" Background="Green" Command="{Binding AddCommand}">Add</Button>
+					<Button Width="70" Foreground="White" Background="Gray" Command="{Binding ModifyCommand}">Modify</Button>
+					<Button Width="70" Foreground="White" Background="Red" Command="{Binding DeleteCommand}">Delete</Button>
+				</StackPanel>
+			</StackPanel>
+		</TabItem>
+		<TabItem Header="Loan">
+			<StackPanel DataContext="{Binding LoansViewModel}" Spacing="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+				<TextBlock FontSize="30">List of loans:</TextBlock>
+				<Border BorderBrush="Black" BorderThickness="2" Padding="10" Width="500">
+					<ScrollViewer VerticalScrollBarVisibility="Auto">
+						<ListBox Items="{Binding Loans}">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<Border BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Margin="20">
+										<Grid>
+											<Grid.RowDefinitions>
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+											</Grid.RowDefinitions>
+
+											<StackPanel Orientation="Horizontal" Grid.Row="0">
+												<TextBlock Text="IdBorrowers: " FontWeight="Bold" />
+												<TextBlock Text="{Binding IdBorrowers}" FontWeight="Bold" />
+											</StackPanel>
+											<StackPanel Orientation="Horizontal" Grid.Row="1">
+												<TextBlock Text="IdBooks: " FontWeight="Bold" />
+												<TextBlock Text="{Binding ISBN}" FontWeight="Bold" />
+											</StackPanel>
+											<StackPanel Orientation="Horizontal" Grid.Row="2">
+												<TextBlock Text="StartDate: " FontWeight="Bold" />
+												<TextBlock Text="{Binding StartDate}" FontWeight="Bold" />
+											</StackPanel>
+											<StackPanel Orientation="Horizontal" Grid.Row="3">
+												<TextBlock Text="EndDate: " FontWeight="Bold" />
+												<TextBlock Text="{Binding EndDate}" FontWeight="Bold" />
+											</StackPanel>
+											<StackPanel Orientation="Horizontal" Grid.Row="4">
+												<TextBlock Text="Returndate: " FontWeight="Bold" />
+												<TextBlock Text="{Binding ReturnDate}" FontWeight="Bold" />
+											</StackPanel>
+										</Grid>
+									</Border>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</ScrollViewer>
+				</Border>
+
+				<StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="5"
+					HorizontalAlignment="Left">
+
+					<StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="5"
+					HorizontalAlignment="Left">
+					<Button Width="70" Foreground="White" Background="Green">Add</Button>
+					<Button Width="70" Foreground="White" Background="Gray">Modify</Button>
+					<Button Width="70" Foreground="White" Background="Red">Delete</Button>
+				</StackPanel>
+
+				</StackPanel>
+			</StackPanel>
+		</TabItem>
+
+		<TabItem Header="Returns">
+			<StackPanel DataContext="{Binding ReturnViewModel}" Spacing="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+				<TextBlock FontSize="30">List of Returns:</TextBlock>
+				<ListBox Items="{Binding ReturnName}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}" />
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</StackPanel>
+		</TabItem>
+	
+	</TabControl>
+</Window>
+
+
+
