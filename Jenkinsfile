@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        // Assure que Jenkins utilise le bon SDK .NET installé (configuré dans Jenkins > Global Tools)
+        // pour vérieifer que Jenkins utilise le bon SDK .NET installé 
         dotnet 'dotnet-sdk'
     }
 
